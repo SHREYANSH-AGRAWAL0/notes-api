@@ -3,6 +3,9 @@ const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
 const Note = require('./models/Note')
+const bodyparser = require('body-parser')
+app.use(bodyparser.urlencoded({ extended: false }))
+app.use(bodyparser.json())
 
 mongoose.set('strictQuery', false);
 mongoose.connect("mongodb+srv://ShreyanshAgrawal:e50cf28@cluster0.pf6t0zk.mongodb.net/notesdb").then(() => {
@@ -14,28 +17,37 @@ mongoose.connect("mongodb+srv://ShreyanshAgrawal:e50cf28@cluster0.pf6t0zk.mongod
     })
 
     app.get('/notes', async (req, res) => {
-        var notes = await Note.find(); 
+        var notes = await Note.find();
         console.log('All Notes')
         res.json(notes)
     })
 
-    app.get('/notes/add', async (req, res) => {
+    app.post('/notes/add', async (req, res) => {
+
+        await Note.deleteOne({ id: req.body.id })
+
         const newNote = new Note({
-            id: "002",
-            userid: "ashreyansh47@gmail.com",
-            title: "My second Note",
-            content: "Hello Everyone"
-        }); 
-       await newNote.save(); 
-        const response = {message:"new Note Created!"}
+            id: req.body.id,
+            userid: req.body.userid,
+            title: req.body.title,
+            content: req.body.content
+        });
+        await newNote.save();
+        const response = { message: "new Note Created!" }
         console.log('Added new Note')
-        res.json(response); 
+        res.json(newNote);
     })
 
     app.get('/notes/:userid', async (req, res) => {
         var notes = await Note.find({ userid: req.params.userid })
         console.log(`Got all notes for ${req.params.userid}`)
-        res.json(notes); 
+        res.json(notes);
+    })
+
+    app.delete('/notes/delete/:id', async (req, res) => {
+        await Note.deleteOne({ id: req.params.id })
+        console.log(`Deleted the note with id : ${req.params.id}`)
+        res.send(`Deleted the note with id : ${req.params.id}`)
     })
     
 })
