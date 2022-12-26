@@ -47,7 +47,8 @@ mongoose.connect("mongodb+srv://ShreyanshAgrawal:e50cf28@cluster0.pf6t0zk.mongod
     app.delete('/notes/delete/:id', async (req, res) => {
         await Note.deleteOne({ id: req.params.id })
         console.log(`Deleted the note with id : ${req.params.id}`)
-        res.send(`Deleted the note with id : ${req.params.id}`)
+        const response = {message : "note deleted"}
+        res.json(response)
     })
     
 })

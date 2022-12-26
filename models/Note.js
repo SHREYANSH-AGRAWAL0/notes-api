@@ -5,7 +5,7 @@ const noteSchema = mongoose.Schema({
     userid: { type: String, required: true },
     title: { type: String, required: true },
     content: { type: String },
-    dataAdded: { type: Date, defalut: Date.now }
+    dateAdded: { type: Date, defalut: Date.now }
 });
 
 module.exports = mongoose.model("Note", noteSchema);
