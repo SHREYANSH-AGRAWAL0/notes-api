@@ -8,6 +8,17 @@ router.get('/allUsers', async (req, res) => {
     res.json(users);
 })
 
+router.get('/:email', async (req, res) => {
+    var email = req.params.email; 
+    var founduser = await user.findOne({ email: email })
+    if (!founduser) {
+        res.json({ success: false, error: "user not found" }); 
+        return; 
+    }
+    res.json({ success: true, founduser })
+    return; 
+})
+
 router.post('/addUser', async (req, res) => {
     await user.deleteOne({ userid: req.body.userid })
     await user.deleteOne({ email: req.body.email })
@@ -53,10 +64,5 @@ router.post('/login', async (req, res) => {
     res.json({success: true,data:founduser})
 
 })
-
-
-
-
-
 
 module.exports = router; 
