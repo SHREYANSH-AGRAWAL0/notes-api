@@ -20,7 +20,6 @@ router.get('/:email', async (req, res) => {
 })
 
 router.post('/addUser', async (req, res) => {
-    await user.deleteOne({ userid: req.body.userid })
     await user.deleteOne({ email: req.body.email })
     await user.deleteOne({ phone: req.body.phone })
     const userdata = req.body; 
