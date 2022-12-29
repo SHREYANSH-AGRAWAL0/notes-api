@@ -18,8 +18,7 @@ mongoose.connect("mongodb+srv://ShreyanshAgrawal:e50cf28@cluster0.pf6t0zk.mongod
     const notesRoutes = require('./routes/notes_routes');
     app.use('/', notesRoutes);
 
-    const userRoutes = require('./routes/user_router'); 
-    app.use('/users',userRoutes)
+    
 
 })
 
