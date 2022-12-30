@@ -17,7 +17,6 @@ exports.addorUpdateNote = async (req, res) => {
         content: req.body.content
     });
     await newNote.save();
-    const response = { message: "new Note Created!" }
     console.log('Added new Note')
     res.json(newNote);
 }
