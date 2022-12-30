@@ -15,10 +15,8 @@ mongoose.connect("mongodb+srv://ShreyanshAgrawal:e50cf28@cluster0.pf6t0zk.mongod
         res.send('Hello and welcome to the home page')
     })
 
-    const notesRoutes = require('./routes/notes_routes');
-    app.use('/', notesRoutes);
-
-    
+    app.use('/', require('./routes/notes_routes'));
+    app.use('/users', require('./routes/user_routes')); 
 
 })
 
