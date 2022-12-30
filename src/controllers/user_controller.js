@@ -1,7 +1,6 @@
 const User = require('../models/User');
 
 module.exports.createUser = async (req, res) => {
-    //create user;
 
     const currentUser = await User.findOne({ email: req.body.email })
 
@@ -13,7 +12,7 @@ module.exports.createUser = async (req, res) => {
         }); 
         await newUser.save();
         console.log("Created new User");
-        const response = "New User Created Successfully" ; 
+        const response = "Account Created Successfully!" ; 
         res.json(response); 
         return;
     }
@@ -26,18 +25,14 @@ module.exports.createUser = async (req, res) => {
 };
 
 module.exports.signIn = ( async (req, res) => {
-
     const currentUser = await User.findOne({ email: req.body.email, password: req.body.password })
-    
     if (currentUser) {
         console.log("User Logged in");
         res.json(currentUser);
         return;
     }
-
     console.log("User not logged in");
-        res.json({ message: "Incorrect Email and password" });
+        res.json("Email or Password Invalid");
         return;
-
 })
 
