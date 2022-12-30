@@ -13,13 +13,13 @@ module.exports.createUser = async (req, res) => {
         }); 
         await newUser.save();
         console.log("Created new User");
-        const response = { message: "New User Created Successfully" }; 
+        const response = "New User Created Successfully" ; 
         res.json(response); 
         return;
     }
 
     console.log("User already exists");
-    const response = { message: "User Already Exists" }; 
+    const response = "User already exists"; 
     res.json(response); 
     return;
 
