@@ -11,4 +11,4 @@ router.get('/:userid', notesController.getNotebyId)
 
 router.delete('/delete/:id',notesController.deleteNote)
 
-module.exports = router; 
+module.exports = router;   

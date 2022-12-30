@@ -9,11 +9,11 @@ module.exports.createUser = async (req, res) => {
         const newUser = User({
             email: req.body.email,
             password: req.body.password,
-            name: req.body.name
-        });
+            name: req.body.name 
+        }); 
         await newUser.save();
         console.log("Created new User");
-        res.json({ message: "Created new User" });
+        res.json(newUser); 
         return;
     }
 
