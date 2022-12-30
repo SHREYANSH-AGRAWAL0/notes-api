@@ -24,15 +24,35 @@ module.exports.createUser = async (req, res) => {
 
 };
 
-module.exports.signIn = ( async (req, res) => {
-    const currentUser = await User.findOne({ email: req.body.email, password: req.body.password })
-    if (currentUser) {
-        console.log("User Logged in");
-        res.json(currentUser);
-        return;
+module.exports.signIn = (async (req, res) => {
+    
+    const currentUser = await User.findOne({ email: req.body.email }); 
+
+    if (!currentUser) {
+        console.log("User does not exist")
+        res.json("User does not exist"); 
+        return; 
     }
-    console.log("User not logged in");
-        res.json("Email or Password Invalid");
-        return;
+
+    if (currentUser.password != req.body.password) {
+        console.log("Password does not match")
+        res.json("Password does not match"); 
+        return; 
+    }
+
+    console.log("User Logged in"); 
+    res.json(currentUser); 
+    return; 
+        
+        
+    // const currentUser = await User.findOne({ email: req.body.email, password: req.body.password })
+    // if (currentUser) {
+    //     console.log("User Logged in");
+    //     res.json(currentUser);
+    //     return;
+    // }
+    // console.log("User not logged in");
+    //     res.json("Email or Password Invalid");
+    //     return;
 })
 
